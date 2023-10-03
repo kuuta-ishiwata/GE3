@@ -670,7 +670,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         OutputDebugStringA(error.c_str());
         assert(0);
     }
-
+    
     // ピクセルシェーダの読み込みとコンパイル
     result = D3DCompileFromFile(
         L"Resources/shaders/BasicPS.hlsl",   // シェーダファイル名
