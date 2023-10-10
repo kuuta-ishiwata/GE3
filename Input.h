@@ -1,4 +1,5 @@
 #pragma once
+#include <Windows.h>
 
 
 
@@ -8,7 +9,7 @@ public:
 
 
 	//‰Šú‰»
-	void Initialize();
+	void Initialize(HINSTANCE hInstance, HWND hwnd);
 
 	//XV
 	void Update();
@@ -16,10 +17,6 @@ public:
 
 
 private:
-
-
-
-
 
 
 };
