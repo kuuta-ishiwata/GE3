@@ -34,16 +34,13 @@ void Input::Initialize(HINSTANCE hInstance, HWND hwnd)
 void Input::Update()
 {
 
-
-   
-
+    //keyPreの中にkeyの情報をコピー
+    memcpy(keyPre, key, sizeof(key));
     // キーボード情報の取得開始
     keyboard->Acquire();
     // 全キーの入力状態を取得する
    
     keyboard->GetDeviceState(sizeof(key), key);
-
-
 
 }
 
@@ -65,5 +62,11 @@ bool Input::PushKeys(BYTE keyNumber)
 
 bool Input::TriggerKey(BYTE keyNumber)
 {
+    if ()
+    {
+
+        return true;
+    }
+
     return false;
 }
