@@ -4,7 +4,6 @@
 
 using namespace Microsoft::WRL;
 
-
 void Input::Initialize(HINSTANCE hInstance, HWND hwnd)
 {
 
@@ -53,6 +52,7 @@ bool Input::PushKeys(BYTE keyNumber)
     {
 
         return true;
+
     }
 
     //”CˆÓ‚Ìƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚Ä‚¢‚È‚©‚Á‚½‚Æ‚«
@@ -62,7 +62,7 @@ bool Input::PushKeys(BYTE keyNumber)
 
 bool Input::TriggerKey(BYTE keyNumber)
 {
-    if ()
+    if (keyPre[keyNumber] && keyPre[keyNumber] == 0)
     {
 
         return true;
