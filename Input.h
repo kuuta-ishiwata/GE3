@@ -8,7 +8,7 @@
 #pragma comment(lib, "dxguid.lib")
 
 #include <wrl.h>
-
+#include "WinApp.h"
 
 
 class Input
@@ -30,7 +30,7 @@ public:
 	//”CˆÓ‚Ìƒ{ƒ^ƒ“‚ª—£‚³‚ê‚½uŠÔ
 
 private:
-
+	WinApp* WinApp_ = nullptr;
 
     Microsoft::WRL::ComPtr<IDirectInputDevice8> keyboard;
 
