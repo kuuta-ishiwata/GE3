@@ -55,16 +55,33 @@ void WinApp::Initialize()
     // ウィンドウを表示状態にする
     ShowWindow(hwnd, SW_SHOW);
 
-    MSG msg{};  // メッセージ
-
-	
     
 }
 
-void WinApp::Update()
+bool WinApp::Update()
 {
 
+    // メッセージがある？
+    if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
+        TranslateMessage(&msg); // キー入力メッセージの処理
+        DispatchMessage(&msg); // プロシージャにメッセージを送る
+    }
 
+    // ?ボタンで終了メッセージが来たらゲームループを抜ける
+    if (msg.message == WM_QUIT) 
+    {
+
+        return true;
+    }
+
+    return false;
+}
+
+void WinApp::Finalize()
+{
+
+    // ウィンドウクラスを登録解除
+    UnregisterClass(w.lpszClassName, w.hInstance);
 
 
 }

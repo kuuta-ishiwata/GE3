@@ -11,7 +11,11 @@ public:
 
 
 	void Initialize();
-	void Update();
+	bool Update();
+	
+	//後処理
+	void Finalize();
+
 
 	HWND GetHwnd() const { return hwnd; }
 	HINSTANCE GetInstance() const { return w.hInstance; }
@@ -27,6 +31,8 @@ private:
 
 	HWND hwnd;
 	WNDCLASSEX w{};
+	MSG msg{};  // メッセージ
+
 
 };
 

@@ -17,7 +17,7 @@ public:
 
 
 	//初期化
-	void Initialize(HINSTANCE hInstance, HWND hwnd);
+	void Initialize(WinApp* winApp);
 
 	//更新
 	void Update();
@@ -30,7 +30,7 @@ public:
 	//任意のボタンが離された瞬間
 
 private:
-	WinApp* WinApp_ = nullptr;
+	WinApp* winApp_ = nullptr;
 
     Microsoft::WRL::ComPtr<IDirectInputDevice8> keyboard;
 
