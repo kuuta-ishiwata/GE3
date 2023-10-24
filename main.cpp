@@ -341,7 +341,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     ComPtr<IDXGISwapChain1> swapChain1;
     // スワップチェーンの生成
     result = dxgiFactory->CreateSwapChainForHwnd(
-        commandQueue.Get(), hwnd, &swapChainDesc, nullptr, nullptr, &swapChain1);
+        commandQueue.Get(), winApp_->GetHwnd() , &swapChainDesc, nullptr, nullptr, &swapChain1);
     assert(SUCCEEDED(result));
 
     // SwapChain4を得る

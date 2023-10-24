@@ -13,6 +13,12 @@ public:
 	void Initialize();
 	void Update();
 
+	HWND GetHwnd() const { return hwnd; }
+
+private:
+
+
+	HWND hwnd;
 
 };
 
