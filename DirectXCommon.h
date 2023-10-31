@@ -17,8 +17,14 @@ public:
 
 	void Initialize(WinApp* winApp);
 
+	//•`‰æ‘Oˆ—
+	void PreDraw();
+	//•`‰æŒãˆ—
+	void PostDraw();
 
-	
+	//Getter
+	ID3D12Device* GetDevice() const { return device.Get(); }
+	ID3D12GraphicsCommandList* GetCommandList() const { return commandList.Get(); }
 
 
 private:
@@ -62,5 +68,7 @@ private:
 	ComPtr<ID3D12Fence> fence;
 	UINT64 fenceVal = 0;
 
+	D3D12_RESOURCE_BARRIER barrierDesc{};
+	
 };
 
