@@ -797,7 +797,5 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
     delete winApp_;
     
-    
-
     return 0;
 }

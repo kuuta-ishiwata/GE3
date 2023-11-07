@@ -357,6 +357,7 @@ void DirectXCommon::FenceInitialize()
 
 void DirectXCommon::InitializeFixFPS()
 {
+
     //Œ»İ‚ğ‚«‚ë‚­
     reference_ = std::chrono::steady_clock::now();
 
