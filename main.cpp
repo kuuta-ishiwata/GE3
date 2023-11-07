@@ -20,6 +20,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 #pragma endregion
 
 #pragma region 
+
     dxCommon_ = new DirectXCommon();
     dxCommon_->Initialize(winApp_);
 
