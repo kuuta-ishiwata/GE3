@@ -5,6 +5,7 @@
 
 
 #include <vector>
+#include<chrono>
 #include "WinApp.h"
 
 class DirectXCommon
@@ -41,6 +42,12 @@ private:
 	//フェンズ
 	void FenceInitialize();
 
+	//FPS固定初期化処理
+	void InitializeFixFPS();
+	//FPS固定更新処理
+	void UpdateFixFPS();
+
+
 private:
 	WinApp* winApp = nullptr;
 
@@ -70,5 +77,8 @@ private:
 
 	D3D12_RESOURCE_BARRIER barrierDesc{};
 	
+	//記録用の時間計測
+	std::chrono::steady_clock::time_point reference_;
+
 };
 
