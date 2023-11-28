@@ -70,9 +70,9 @@ void SpriteCommon::Initialize(DirectXCommon* dxCommon)
   rasterizerDesc.FillMode = D3D12_FILL_MODE_SOLID;
 
   //ì«Ç›çûÇ›èàóù
-  ComPtr<IDxcBlob> vertexShaderBlob = CompileShader(L"Resource/shaders/SpriteVS.hlsl", L"vs_6_0", dxcUils.Get(), dxcCompiler.Get(), includeHandler.Get());
+  ComPtr<IDxcBlob> vertexShaderBlob = CompileShader(L"Resources/shaders/SpriteVS.hlsl", L"vs_6_0", dxcUils.Get(), dxcCompiler.Get(), includeHandler.Get());
   assert(SUCCEEDED(result));
-  ComPtr<IDxcBlob> pixelShaderBlob = CompileShader(L"Resource/shaders/SpritePS.hlsl", L"ps_6_0", dxcUils.Get(), dxcCompiler.Get(), includeHandler.Get());
+  ComPtr<IDxcBlob> pixelShaderBlob = CompileShader(L"Resources/shaders/SpritePS.hlsl", L"ps_6_0", dxcUils.Get(), dxcCompiler.Get(), includeHandler.Get());
 
   assert(SUCCEEDED(result));
 
@@ -119,8 +119,8 @@ IDxcBlob* SpriteCommon::CompileShader(const std::wstring& filePath, const wchar_
 		filePath.c_str(),
 		L"-E",L"main",
 		L"-T",profile,
-		L"Zi",L"-Qembed_debug",
-		L"-Qd",
+		L"-Zi",L"-Qembed_debug",
+		L"-Od",
 		L"-Zpr",
 	};
 
