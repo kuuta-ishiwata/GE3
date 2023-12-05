@@ -1,3 +1,13 @@
+struct TransformationMatrix
+{
+   
+    float4x4 WVP;
+
+};
+
+ConstantBuffer<TransformationMatrix> gTransformationMatrix : register(b0);
+
+
 struct VeRtexShaderOutput
 {
     
@@ -17,6 +27,6 @@ VeRtexShaderOutput main(VertexShaderInput input)
 {
     
     VeRtexShaderOutput output;
-    output.positon = input.position;
+    output.positon = mul(input.position, gTransformationMatrix.WVP);
     return output;
 }
