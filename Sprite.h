@@ -18,14 +18,14 @@ private:
 	{
 		DirectX::XMFLOAT3 scale;
 		DirectX::XMFLOAT3 rotate;
-		DirectX::XMFLOAT3  transform;
+		DirectX::XMFLOAT3  translate;
 	};
 
 public:
 
 	//èâä˙âª
 	void Initialize(DirectXCommon* dxCommon, SpriteCommon* common);
-
+	void Update();
 	void Draw();
 
 

@@ -3,6 +3,7 @@
 #include <DirectXMath.h>
 #include "BufferResource.h"
 
+#include "External/imgui/imgui.h"
 
 using namespace Microsoft::WRL;
 using namespace DirectX;
@@ -21,6 +22,13 @@ void Sprite::Initialize(DirectXCommon* dxCommon, SpriteCommon* common)
 	CreateWVP();
 }
 
+void Sprite::Update()
+{
+	ImGui::Begin("Texture");
+	ImGui::DragFloat3("Pos", &transform.translate.x, 0.1f);
+	ImGui::End();
+}
+
 void Sprite::Draw()
 {
 	//Y軸回転
@@ -28,7 +36,7 @@ void Sprite::Draw()
 	//ワールド
 	XMMATRIX scaleMatrix = XMMatrixScalingFromVector(XMLoadFloat3(&transform.scale));
 	XMMATRIX rotateMatrix = XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&transform.rotate));
-	XMMATRIX translationMatrix = XMMatrixTranslationFromVector(XMLoadFloat3(&transform.transform));
+	XMMATRIX translationMatrix = XMMatrixTranslationFromVector(XMLoadFloat3(&transform.translate));
 	
 	//回転行列とスケール行列
 	XMMATRIX rotationAndScaleMatrix = XMMatrixMultiply(rotateMatrix, scaleMatrix);
@@ -39,7 +47,7 @@ void Sprite::Draw()
 	//カメラ
 	XMMATRIX cameraScaleMatrix = XMMatrixScalingFromVector(XMLoadFloat3(&cameraTransform.scale));
 	XMMATRIX cameraRotateMatrix = XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&cameraTransform.rotate));
-	XMMATRIX cameraTranslationMatrix = XMMatrixTranslationFromVector(XMLoadFloat3(&cameraTransform.transform));
+	XMMATRIX cameraTranslationMatrix = XMMatrixTranslationFromVector(XMLoadFloat3(&cameraTransform.translate));
 	
 	//回転とスケールの掛け算
 	XMMATRIX cameraRotateAndScameMatrix = XMMatrixMultiply(cameraRotateMatrix, cameraTranslationMatrix);

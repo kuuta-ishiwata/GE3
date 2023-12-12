@@ -26,7 +26,15 @@ public:
 	//Getter
 	ID3D12Device* GetDevice() const { return device.Get(); }
 	ID3D12GraphicsCommandList* GetCommandList() const { return commandList.Get(); }
+    
+	//スワップチェーン
+	DXGI_SWAP_CHAIN_DESC1 GetswapChainDesc() { return swapChainDesc; };
 
+	//RTVディスク
+	D3D12_RENDER_TARGET_VIEW_DESC GetRtvDesc() { return rtvDesc; }
+
+	//SRV
+	ID3D12DescriptorHeap* GetSrvDescriptorHeaop() { return srvDescriptorHeap.Get(); }
 
 private:
 	//デバイス
@@ -48,6 +56,10 @@ private:
 	void UpdateFixFPS();
 
 
+	//ディスクリプターヒープ
+	ID3D12DescriptorHeap* CreateDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE heapType, UINT numDescripots, bool shaderVisible);
+
+	
 private:
 	WinApp* winApp = nullptr;
 
@@ -61,6 +73,9 @@ private:
 
 	DXGI_SWAP_CHAIN_DESC1 swapChainDesc{};
 	ComPtr<IDXGISwapChain4> swapChain;
+
+	D3D12_RENDER_TARGET_VIEW_DESC rtvDesc{};
+
 
 	D3D12_DESCRIPTOR_HEAP_DESC rtvHeapDesc{};
 	ComPtr<ID3D12DescriptorHeap> rtvHeap;
@@ -79,6 +94,11 @@ private:
 	
 	//記録用の時間計測
 	std::chrono::steady_clock::time_point reference_;
+
+	//ディスクリプターヒープ
+	ComPtr<ID3D12DescriptorHeap>rtvDescriptorHeap;
+	ComPtr<ID3D12DescriptorHeap>srvDescriptorHeap;
+
 
 };
 
