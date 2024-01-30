@@ -1,3 +1,5 @@
+#include "Sprite.hlsli"
+
 struct TransformationMatrix
 {
    
@@ -8,25 +10,20 @@ struct TransformationMatrix
 ConstantBuffer<TransformationMatrix> gTransformationMatrix : register(b0);
 
 
-struct VeRtexShaderOutput
-{
-    
-    float4 positon : SV_POSITION;
-    
-};
-
-
 struct VertexShaderInput
 {
     
     float4 position : POSITION0;
+    float2 texcoord : TEXCOORD0;
     
 };
 
-VeRtexShaderOutput main(VertexShaderInput input)
+VertexShaderOutput main(VertexShaderInput input)
 {
     
-    VeRtexShaderOutput output;
+    VertexShaderOutput output;
     output.positon = mul(input.position, gTransformationMatrix.WVP);
+    output.texcoord = input.texcoord;
     return output;
+    
 }

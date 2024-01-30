@@ -30,6 +30,8 @@ ID3D12Resource* CreateBufferResource(ID3D12Device* device, size_t sizeInByte)
 	return resource;
 }
 
+
+
 //テクスチャリソースを作成する関数
 ID3D12Resource* CreateTextureResource(ID3D12Device* device, const DirectX::TexMetadata& metadata)
 {
@@ -57,5 +59,10 @@ ID3D12Resource* CreateTextureResource(ID3D12Device* device, const DirectX::TexMe
 		D3D12_RESOURCE_STATE_GENERIC_READ,
 		nullptr,
 		IID_PPV_ARGS(&resource));
+
 	assert(SUCCEEDED(result));
+
+	return resource;
+
+
 }

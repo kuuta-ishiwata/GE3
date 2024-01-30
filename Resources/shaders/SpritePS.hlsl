@@ -1,9 +1,18 @@
+#include "Sprite.hlsli"
+
 struct Material
 {
     float4 color;
+    float4x4 uvTransform;
     
 };
+
 ConstantBuffer<Material> gMaterial : register(b0);
+
+
+Texture2D<float4> gTexture : register(t0);
+SamplerState gsampler : register(s0);
+
 
 struct PixelShaderOutput
 {
@@ -12,9 +21,17 @@ struct PixelShaderOutput
     
 };
 
-PixelShaderOutput main()
+PixelShaderOutput main(VertexShaderOutput input)
 {
+    
     PixelShaderOutput output;
-    output.color = gMaterial.color;
+    
+    
+    float4 transformedUV = mul(float4(input.texcoord, 0.0f, 1.0f), gMaterial.uvTransform);
+    float4 textureColor = gTexture.Sample(gsampler, transformedUV.xy);
+    
+    output.color = gMaterial.color * textureColor;
+    
     return output;
+    
 }

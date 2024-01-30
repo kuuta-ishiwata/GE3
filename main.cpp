@@ -6,6 +6,8 @@
 #include "Sprite.h"
 #include "ImGuiManager.h"
 
+#include <vector>
+
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
@@ -40,9 +42,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     SpriteCommon* common = new SpriteCommon();
     common->Initialize(dxCommon_);
 
-    Sprite* sprite_ = new Sprite();
-    sprite_->Initialize(dxCommon_, common);
-
+    std::vector<Sprite*> sprite_;
+    for(int i = 0; i< 5;i++)
+    {
+        Sprite* temp = new Sprite();
+        temp->Initialize(dxCommon_, common);
+        temp->SetPosition({ (float)i * 1,0 });
+        sprite_.push_back(temp);
+    }
 
     // ゲームループ
     while (true) {
@@ -57,14 +64,52 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         imgui->ShowDemo();
 
         input_->Update();
+
+        //移動
+        /*
+        DirectX::XMFLOAT2 pos = sprite_->GetPosition();
+        pos.x += 0.01f;
+        sprite_->SetPosition(pos);
+
+
+        //回転
+
+        float rot = sprite_->GetRotation();
+        rot += 0.01f;
+        sprite_->SetRotation(rot);
+
+        //色
+        DirectX::XMFLOAT4 color = sprite_->GetColor();
+        color.x -= 0.1f;
+        if (color.x < 0)
+        {
+
+            color.x = 1.0f;
+        }
+        sprite_->SetColor(color);
+
+
+        //サイズ
+        DirectX::XMFLOAT2 size = sprite_->Getize();
+        size.y += 0.01f;
+        sprite_->SetSize(size);
+        */
+
+        for (int i = 0; i < 5; i++)
+        {
+            sprite_[i]->Update();
+        }
+
         
 
         //更新後処理
         ImGuiManager::CreateCommand();
         dxCommon_->PreDraw();
-        
-        sprite_->Draw();
-
+       
+        for (int i = 0; i < 5; i++)
+        {
+            sprite_[i]->Draw();
+        }
         //更新前処理
         ImGuiManager::CommandsExcute(dxCommon_->GetCommandList());
         dxCommon_->PostDraw();
@@ -72,8 +117,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         // DirectX毎フレーム処理　ここまで
 
     }
-
-    delete sprite_;
+    for (int i = 0; i < 5; i++)
+    {
+        delete sprite_[i];
+    }
     delete common;
 
     delete imgui;
