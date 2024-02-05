@@ -148,7 +148,7 @@ void SpriteCommon::Initialize(DirectXCommon* dxCommon)
 
 
 }
-
+/*
 DirectX::ScratchImage SpriteCommon::LoadTexture(const std::wstring& filePath)
 {
 
@@ -163,30 +163,14 @@ DirectX::ScratchImage SpriteCommon::LoadTexture(const std::wstring& filePath)
 	assert(SUCCEEDED(result));
 
 	return imgae;
-
+	
 
 }
-
-void SpriteCommon::UploadTextureData(ID3D12Resource* texture, const DirectX::ScratchImage& mipImages)
-{
-	//MetaèÓïÒÇéÊìæ
-	const DirectX::TexMetadata& metaData = mipImages.GetMetadata();
-	//ëSMipMap
-	for(size_t mipLevel = 0; mipLevel < metaData.mipLevels; ++mipLevel)
-		{
-		const DirectX::Image* img = mipImages.GetImage(mipLevel, 0, 0);
-		//TextureÇ…ì]ëó
-		HRESULT result = texture->WriteToSubresource(
-			UINT(mipLevel),
-			nullptr,
-			img->pixels,
-			UINT(img->rowPitch),
-			UINT(img->slicePitch)
-		);
-		assert(SUCCEEDED(result));
-
-		}
-}
+*/
+//void SpriteCommon::UploadTextureData(ID3D12Resource* texture, const DirectX::ScratchImage& mipImages)
+//{
+//	
+//}
 
 IDxcBlob* SpriteCommon::CompileShader(const std::wstring& filePath, const wchar_t* profile, IDxcUtils* dxcUties, IDxcCompiler3* dxcCompiler, IDxcIncludeHandler* includeHandler)
 {

@@ -38,7 +38,7 @@ void Sprite::Initialize(DirectXCommon* dxCommon, SpriteCommon* common)
 	//読み込んだ情報をSrvDesc(枠)とhandle(位置)を使って保存する
 	dxCommon_->GetDevice()->CreateShaderResourceView(textureResource, &srvDesc, textureSrvhandleCPU);
 
-
+	
 
 	//頂点情報
 	CreateVertex();
@@ -57,18 +57,19 @@ void Sprite::Update()
 	transform.rotate = { 0,0,rotation };
 	materialData->color = color_;
 	transform.scale = { size.x, size.y,1.0f };
-
-	vertexData[0].position = { -0.5f,-0.5f,0.0f,1.0f };
+	
+	vertexData[0].position = { 0.0f,1.0f,0.0f,1.0f };
 	vertexData[0].texcoord = { 0.0f,1.0f };
 
-	vertexData[1].position = { -0.5f,+0.5f,0.0f,1.0f };
+	vertexData[1].position = { 0.0f,0.0f,0.0f,1.0f };
 	vertexData[1].texcoord = { 0.0f,0.0f };
 
-	vertexData[2].position = { +0.5f,-0.5f,0.0f,1.0f };
+	vertexData[2].position = { 1.0f, 1.0f,0.0f,1.0f };
 	vertexData[2].texcoord = { 1.0f,1.0f };
 
-	vertexData[3].position = { +0.5f,+0.5f,0.0f,1.0f };
+	vertexData[3].position = { 1.0f,0.0f,0.0f,1.0f };
 	vertexData[3].texcoord = { 1.0f,0.0f };
+
 
 	ImGui::Begin("Texture");
 	ImGui::DragFloat3("Pos", &transform.translate.x, 0.1f);
@@ -82,7 +83,7 @@ void Sprite::Update()
 void Sprite::Draw()
 {
 	//Y軸回転
-	transform.rotate.y += 0.05f;
+	//transform.rotate.y += 0.05f;
 	//ワールド
 	XMMATRIX scaleMatrix = XMMatrixScalingFromVector(XMLoadFloat3(&transform.scale));
 	XMMATRIX rotateMatrix = XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&transform.rotate));
@@ -109,17 +110,19 @@ void Sprite::Draw()
 	XMMATRIX view = XMMatrixInverse(nullptr, cameraMatrix);
 	
 	//Proj
+	XMMATRIX proj = XMMatrixOrthographicOffCenterLH(0, WinApp::window_width, WinApp::window_height, 0, 0.1f, 100.f);
+	/*
 	XMMATRIX proj = XMMatrixPerspectiveFovLH(XMConvertToRadians(45.f),
 		(float)WinApp::window_width / (float)WinApp::window_height,
 		0.1f, 100.f);
-	
+	*/
 	//WVP
 	XMMATRIX worldViewProjectionMatrix = worldMatrix * (view * proj);
 	//行列の代入
 	*wvpData = worldViewProjectionMatrix;
 
 	//行列の代入
-	*wvpData = worldMatrix;
+	//*wvpData = worldMatrix;
 
 
 
@@ -159,7 +162,7 @@ void Sprite::Draw()
 
 	//dxCommon_->GetCommandList()->DrawInstanced(6, 1, 0, 0);
 	//インデックス情報がある場合の描画
-	dxCommon_->GetCommandList()->DrawIndexedInstanced(4, 1, 0, 0,0);
+	dxCommon_->GetCommandList()->DrawIndexedInstanced(6, 1, 0, 0,0);
 
 
 }
@@ -181,10 +184,13 @@ void Sprite::CreateVertex()
 
 	vertexData[0].position = { 0.0f,1.0f,0.0f,1.0f };
 	vertexData[0].texcoord = { 0.0f,1.0f };
+
 	vertexData[1].position = { 0.0f,0.0f,0.0f,1.0f };
 	vertexData[1].texcoord = { 0.0f,0.0f };
+
 	vertexData[2].position = { 1.0f, 1.0f,0.0f,1.0f };
 	vertexData[2].texcoord = { 1.0f,1.0f };
+
 	vertexData[3].position = { 1.0f,0.0f,0.0f,1.0f };
 	vertexData[3].texcoord = { 1.0f,0.0f };
 
