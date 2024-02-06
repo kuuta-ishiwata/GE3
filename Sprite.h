@@ -43,7 +43,7 @@ private:
 public:
 
 	//初期化
-	void Initialize(DirectXCommon* dxCommon, SpriteCommon* common);
+	void Initialize(SpriteCommon* common, std::wstring textureFilePath);
 	void Update();
 	void Draw();
 
@@ -78,7 +78,7 @@ private:
 	DirectXCommon* dxCommon_ = nullptr;
 	SpriteCommon* common_ = nullptr;
 
-	D3D12_GPU_DESCRIPTOR_HANDLE textureHandleGPU;
+	//D3D12_GPU_DESCRIPTOR_HANDLE textureHandleGPU;
 
 	//頂点情報
 	ComPtr<ID3D12Resource>vertexResource;
@@ -95,8 +95,9 @@ private:
 
 	//行列情報
 	ComPtr<ID3D12Resource> wvpResource;
-
 	DirectX::XMMATRIX* wvpData = nullptr;
+
+
 	//パラメーター
 	DirectX::XMFLOAT4 color_ = { 1.0f,1.0f,1.0f,1.0f };
 
@@ -108,6 +109,11 @@ private:
 	DirectX::XMFLOAT2 position = {0,0};
 	float rotation = 0;
 	DirectX::XMFLOAT2 size = { 512,512 };
+
+	//画像の保存されている場所
+	uint32_t textureIndex_ = 0;
+
+
 	//カメラ
 	Transform cameraTransform = { {1,1,1},{0,0,0},{0,0,-5} };
 

@@ -28,6 +28,11 @@ public:
 	//画像読み込み
 	void LoadTexture(const std::wstring& filePath);
 
+	//指定した画像が配列の何番目にあるのか確認
+	uint32_t GetTextureIndexFilePatj(const std::wstring& filePath);
+
+	//指定した要素番号のGPUハンドルを受取る
+	D3D12_GPU_DESCRIPTOR_HANDLE GetSrvHandleGPU(uint32_t textureIndex);
 private:
 
 	//読み込んだ画像をGPUに送る
@@ -36,6 +41,7 @@ private:
 private:
 
 	static TextureManager* instance;
+	static uint32_t kSRVIndexTop;
 
 	TextureManager() = default;
 	~TextureManager() = default;

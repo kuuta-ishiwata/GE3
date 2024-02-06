@@ -44,12 +44,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     common->Initialize(dxCommon_);
 
     TextureManager::GetInstance()->Initialize(dxCommon_);
+    TextureManager::GetInstance()->LoadTexture(L"Resources/mario.jpg");
 
     std::vector<Sprite*> sprite_;
     for(int i = 0; i< 5;i++)
     {
         Sprite* temp = new Sprite();
-        temp->Initialize(dxCommon_, common);
+        temp->Initialize(common,L"Resources/mario.jpg");
         temp->SetPosition({ (float)i * 120,0 });
         sprite_.push_back(temp);
     }

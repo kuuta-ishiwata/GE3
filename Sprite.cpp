@@ -5,15 +5,17 @@
 
 #include "External/imgui/imgui.h"
 
+#include "TextureManager.h"
+
 using namespace Microsoft::WRL;
 using namespace DirectX;
 
-void Sprite::Initialize(DirectXCommon* dxCommon, SpriteCommon* common)
+void Sprite::Initialize(SpriteCommon* common, std::wstring textureFilePath)
 {
 
-	dxCommon_ = dxCommon;
+	dxCommon_ = common_->GetDirectXCommon();
 	common_ = common;
-	
+	/*
 	//画像の読み込み
 	DirectX::ScratchImage mipImages = common->LoadTexture(L"Resources/mario.jpg");
 	const DirectX::TexMetadata& metaData = mipImages.GetMetadata();
@@ -37,8 +39,11 @@ void Sprite::Initialize(DirectXCommon* dxCommon, SpriteCommon* common)
 
 	//読み込んだ情報をSrvDesc(枠)とhandle(位置)を使って保存する
 	dxCommon_->GetDevice()->CreateShaderResourceView(textureResource, &srvDesc, textureSrvhandleCPU);
-
+	*/
 	
+
+	textureIndex_ = TextureManager::GetInstance()->GetTextureIndexFilePatj(textureFilePath);
+
 
 	//頂点情報
 	CreateVertex();
@@ -158,7 +163,7 @@ void Sprite::Draw()
 
 
 	//画像
-	dxCommon_->GetCommandList()->SetGraphicsRootDescriptorTable(2, textureHandleGPU);
+	dxCommon_->GetCommandList()->SetGraphicsRootDescriptorTable(2, TextureManager::GetInstance()->GetSrvHandleGPU(textureIndex_));
 
 	//dxCommon_->GetCommandList()->DrawInstanced(6, 1, 0, 0);
 	//インデックス情報がある場合の描画
