@@ -13,7 +13,7 @@ TextureManager* TextureManager::GetInstance()
 
 	}
 
-	return nullptr;
+	return instance;
 }
 
 void TextureManager::Finalize()
@@ -26,6 +26,8 @@ void TextureManager::Finalize()
 
 void TextureManager::Initialize(DirectXCommon* dxCommon)
 {
+
+
 	dxCommon_ = dxCommon;
 	textureDatas.reserve(DirectXCommon::kMaxSRVCount);
 

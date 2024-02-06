@@ -13,8 +13,10 @@ using namespace DirectX;
 void Sprite::Initialize(SpriteCommon* common, std::wstring textureFilePath)
 {
 
-	dxCommon_ = common_->GetDirectXCommon();
+	
 	common_ = common;
+	dxCommon_ = common_->GetDirectXCommon();
+
 	/*
 	//画像の読み込み
 	DirectX::ScratchImage mipImages = common->LoadTexture(L"Resources/mario.jpg");
@@ -169,6 +171,12 @@ void Sprite::Draw()
 	//インデックス情報がある場合の描画
 	dxCommon_->GetCommandList()->DrawIndexedInstanced(6, 1, 0, 0,0);
 
+
+}
+
+void Sprite::SetTexture(std::wstring textureFilePath)
+{
+	textureIndex_ = TextureManager::GetInstance()->GetTextureIndexFilePatj(textureFilePath);
 
 }
 
