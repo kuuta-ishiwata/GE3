@@ -62,7 +62,7 @@ void Sprite::Initialize(SpriteCommon* common, std::wstring textureFilePath)
 
 void Sprite::Update()
 {
-	position.y = 200.0f;
+	//position.y = 200.0f;
 	//rotation += 0.01f;
 	//çXêVèàóù
 	transform.translate = {position.x,position.y,0};
@@ -112,11 +112,10 @@ void Sprite::Update()
 
 
 	ImGui::Begin("Texture");
-	ImGui::DragFloat3("Pos", &transform.translate.x, 0.1f);
-
-	ImGui::DragFloat3("UV-Pos", &uvTransform.translate.x, 0.1f);
-	ImGui::DragFloat3("UV-Rot", &uvTransform.translate.x, 0.01f, -10.f, 10.f);
-	ImGui::SliderAngle("UV-Scale", &uvTransform.scale.x, 0.01f, 10.f);
+	ImGui::DragFloat3("Pos", &position.x, 0.1f,10.0f);
+	ImGui::DragFloat3("UV-Pos", &uvTransform.translate.x, 0.01f,-10.f,10.f);
+	ImGui::SliderAngle("UV-Rot", &uvTransform.rotate.z);
+	ImGui::DragFloat3("UV-Scale", &uvTransform.scale.x, 0.01f, -10.f,10.f);
 	ImGui::End();
 }
 

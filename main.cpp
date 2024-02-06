@@ -124,6 +124,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         // DirectX毎フレーム処理　ここまで
 
     }
+
     for (int i = 0; i < 5; i++)
     {
         delete sprite_[i];
