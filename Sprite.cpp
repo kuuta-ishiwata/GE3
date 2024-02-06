@@ -55,27 +55,60 @@ void Sprite::Initialize(SpriteCommon* common, std::wstring textureFilePath)
 	CreateMaterial();
 	//行列
 	CreateWVP();
+
+	//画像サイズを整理する
+	AdujustTextureSize();
 }
 
 void Sprite::Update()
 {
+	position.y = 200.0f;
+	//rotation += 0.01f;
 	//更新処理
 	transform.translate = {position.x,position.y,0};
 	transform.rotate = { 0,0,rotation };
 	materialData->color = color_;
 	transform.scale = { size.x, size.y,1.0f };
 	
-	vertexData[0].position = { 0.0f,1.0f,0.0f,1.0f };
-	vertexData[0].texcoord = { 0.0f,1.0f };
+	//アンカーポイント更新
+	float left   = 0.0f - anchorPoint.x;
+	float right  = 1.0f - anchorPoint.x;
+	float top    = 0.0f - anchorPoint.y;
+	float bottom = 1.0f - anchorPoint.y;
 
-	vertexData[1].position = { 0.0f,0.0f,0.0f,1.0f };
-	vertexData[1].texcoord = { 0.0f,0.0f };
 
-	vertexData[2].position = { 1.0f, 1.0f,0.0f,1.0f };
-	vertexData[2].texcoord = { 1.0f,1.0f };
+	//フリップ
+	if (isFlipX == true)
+	{
+		//左右反転
+		left = -left;
+		right = -right;
 
-	vertexData[3].position = { 1.0f,0.0f,0.0f,1.0f };
-	vertexData[3].texcoord = { 1.0f,0.0f };
+	}
+	if (isFlipY == true)
+	{
+		//上下反転
+		top = -top;
+		bottom = -bottom;
+	}
+
+	//頂点情報
+	vertexData[0].position = { left,bottom,0.0f,1.0f };
+	vertexData[1].position = { left,top,0.0f,1.0f };
+	vertexData[2].position = { right, bottom,0.0f,1.0f };
+	vertexData[3].position = { right,top,0.0f,1.0f };
+
+	const DirectX::TexMetadata& metaData = TextureManager::GetInstance()->GetMetaData(textureIndex_);
+	float tex_left    = textureLeftTop.x / metaData.width ;
+	float tex_right   =  (textureLeftTop.x + textureSIze.x) /metaData.width;
+	float tex_top     =  textureLeftTop.x / metaData.height;
+	float tex_bottom  =  (textureLeftTop.y + textureSIze.y) / metaData.height;
+
+	//UV座標
+	vertexData[0].texcoord = { tex_left,tex_bottom };
+	vertexData[1].texcoord = { tex_left,tex_top };
+	vertexData[2].texcoord = { tex_right,tex_bottom };
+	vertexData[3].texcoord = { tex_right,tex_top };
 
 
 	ImGui::Begin("Texture");
@@ -257,5 +290,16 @@ void Sprite::CreateWVP()
 	wvpResource ->Map(0, nullptr, reinterpret_cast<void**>(&wvpData));
 	*wvpData = XMMatrixIdentity();
 
+
+}
+
+void Sprite::AdujustTextureSize()
+{
+	const DirectX::TexMetadata& metaData = TextureManager::GetInstance()->GetMetaData(textureIndex_);
+
+	textureSIze.x = static_cast<float>(metaData.width);
+	textureSIze.y = static_cast<float>(metaData.height);
+
+	size = textureSIze;
 
 }
